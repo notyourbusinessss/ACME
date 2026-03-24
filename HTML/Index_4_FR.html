@@ -1,0 +1,291 @@
+<html lang="en"><head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>ACME</title>
+<style>
+        .arrow {
+            position: absolute;
+            top: calc( 50% );
+            width: 20px;
+            height: 20px;
+            border: solid black;
+            border-width: 0 3px 3px 0;
+            display: inline-block;
+            padding: 5px;
+            border-color: #ffffff;
+        }
+        .arrow.right {
+            transform: rotate(-45deg);
+            right: -25px;
+            color: #8c52ff;
+        }
+        .arrow.left {
+            transform: rotate(135deg);
+            left: -25px;
+        }
+        .bar{
+            margin-top: 40%;
+            margin-left: -1px;
+            width: 31px;
+            height: 20%;
+            background-color: #3e3830;
+        }
+        body, html {
+            margin: 0;
+            padding: 0;
+            height: 100%;
+            font-family: Arial, sans-serif; /* Setting a default font */
+        }
+        .column{
+            min-width: 0px;
+            margin-left: 5px;
+            word-wrap: break-word;
+        }
+        .circle {
+            position: absolute;
+            top: 50%;
+            right: 30px;
+            transform: translateY(-50%);
+            width: 30px; /* Larger circle */
+            height: 30px; /* Larger circle */
+            background-color: #D9D9D9; /* Circle color */
+            border-radius: 50%; /* Make it a circle */
+            cursor: pointer; /* Change cursor to pointer on hover */
+            z-index: 4; /* Ensure circle is above rectangle */
+        }
+        .description {
+            list-style-type: none;
+            position: absolute;
+            top: calc( 100% + 30px); /* Adjusted top position below the header */
+            left: 50%;
+            transform: translateX(-50%);
+            width: 100%; /* 80% of viewport width */
+            height: auto;
+            background-color: #FFFFFF; /* Set background color to white */
+            z-index: 0; /* Ensure rectangle is behind other elements */
+            border-radius: 10px; /* Rounded corners */
+        }
+        .description li{
+            margin-left: 15px;
+            margin-top: 35px;
+            margin-right: 15px;
+            margin-bottom: 25px;
+        }
+        .description li a {
+            display: grid;
+            grid-template-columns: auto auto;
+        }
+        .end{
+            bottom: 0px;
+        }
+        header {
+            background-color:  #3E3830; /* Menu bar background color */
+            border-bottom: 3px solid #8c52FF; /* Line color under the menu */
+            text-align: left; /* Align text to the left */
+            padding: 10px; /* Added padding */
+            width: 100%; /* Match the width of the viewport */
+            position: fixed; /* Fixed positioning */
+            top: 0; /* Fix to the top */
+            z-index: 3; /* Ensure it's above other elements */
+        }
+        .images {
+            list-style-type: none;
+            position: absolute;
+            top: 90px; /* Adjusted top position below the header */
+            left: 50%;
+            transform: translateX(-50%);
+            width: 80%; /* 80% of viewport width */
+            height: auto;
+            background-color: #FFFFFF; /* Set background color to white */
+            z-index: 0; /* Ensure rectangle is behind other elements */
+            border-radius: 10px; /* Rounded corners */
+            margin-bottom: 30px;
+        }
+        .images li{
+            margin-top: 15px;
+            margin-bottom: 15px;
+            margin-left: 15px;
+            margin-right: 15px;
+        }
+        .images li img{
+            height:auto;
+            width:100%;
+            border-radius: 5px;
+        }
+        .menu {
+            list-style-type: none;
+            margin: 0;
+            padding: 0;
+        }
+        .menu li {
+            margin-right: 20px;
+            position: relative;
+        }
+        .menu li:last-child {
+            margin-right: 0;
+        }
+        .menu li a {
+            color: #8c52ff; /* Text color */
+            text-decoration: none;
+            font-size: 2.5em; /* Slightly bigger text */
+            font-family: IMPACT;
+        }
+        .rectangle {
+            display: none; /* Initially hidden */
+            position: fixed;
+            top: 0;
+            right: 0;
+            width: 0; /* Initial width */
+            height: 0; /* Initial height */
+            background-color: #FFFFFF; /* Set background color to #3E3830 */
+            border: 6px solid #D9D9D9; /* Outline color */
+            border-radius: 10px; /* Rounded corners */
+            opacity: 0; /* Initially transparent */
+            transition: all 0.5s ease-out; /* Smooth transition effect */
+            z-index: 2; /* Ensure rectangle is below circle */
+        }
+        .rectangle.visible {
+            list-style-type: none;
+            display: block;
+            width: calc(100% - 12px); /* Adjusted width */
+            height: auto; /* Adjusted height */
+            opacity: 1; /* Fully visible */
+        }
+        .rectangle.visible li{
+            margin-left: 10%;
+            margin-top: 50px;
+            margin-bottom: 50px;
+            margin-right: 40px;
+        }
+        .rectangle.visible li a {
+            color: #3e3830; /* Text color */
+            text-decoration: none;
+            margin: 15px;
+            margin-top: 15px;
+            margin-bottom: 25px;
+            font-family: helvetica;
+            font-size: 100%; /* Slightly bigger text */
+        }
+        .rectangle.visible li b {
+            color: #8c52ff; /* Text color */
+            text-decoration: none;
+            margin-top: 10%;
+            margin-bottom: 10%;
+            font-family: IMPACT;
+            font-size: 150%; /* Slightly bigger text */
+        }
+        .square {
+            display: flex;
+            flex-direction: column;
+            width: 100%; /* Set width to 100% of viewport width */
+            min-height: calc(80% + 1100px); /* Adjust height to leave space for menu bar */
+            background-color: #3E3830; /* Set background color to #3E3830 */
+            position: relative; /* Relative positioning for absolute children */
+            top: 0px; /* Adjusted top position below the header */
+            overflow-y: auto; /* Enable vertical scroll */
+        }
+        /* Media query for mobile devices */
+        @media screen and (max-width: 600px) {
+            .menu li {
+                margin: 10px 0; /* Adjust margin between menu items */
+            }
+        }
+</style>
+</head>
+<body>
+<header>
+<ul class="menu">
+<li><a>ACME</a></li>
+</ul>
+<div class="circle">
+<div class="bar">
+</div>
+</div> <!-- Real DOM element for the circle -->
+<div class="rectangle"><li style="text-align:center">
+    <a href="../ACME_FR.html"><h2>LA COLLECTION</h2></a>
+    <a href="./Index_4.html"><h2>ENGLISH</h2></a>
+    <a href="./AboutUs_FR.html"><h2>À PROPOS DE L'ÉQUIPE</h2></a>
+    <a href="./File_Links_FR.html"><h2>À PROPOS DU PROJET</h2></a>
+    <a><h2>NOUS JOINDRE</h2></a>
+    <h1><b>ACME</b></h1>
+</li></div>
+</header>
+<div class="square">
+    
+<div class="images">
+    
+    <a class="arrow left" href="./Index_3_FR.html"></a><a class="arrow right" href="./Index_5_FR.html"></a>
+
+<div class="description">
+<li>
+<h2 style="text-align:center">Confluence / Massawippi River with the River S. Frances</h2>
+<a>
+<div class="column">            
+    <h4>ARTISTE</h4>
+</div>
+<div class="column">            
+    <p>William S. Hunter, Jr. (1823-1894)</p>
+</div>
+<div class="column">            
+    <h4>DATE DE CRÉATION</h4>
+</div>
+<div class="column">            
+    <p>Iconnue (mi-19ième siècle)</p>
+</div>
+<div class="column">            
+    <h4>MÉDIUM</h4>
+</div>
+<div class="column">            
+    <p>lithographie: encre sur papier; 23.1 cm x 29.8 cm</p>
+</div>
+<div class="column">            
+    <h4>PROVENANCE</h4>
+</div>
+<div class="column">            
+    <p>Don de Monique Cholette et Philip H. Scowen, avant 1993.</p>
+</div>
+<div class="column">            
+    <h4>GENRES ASSOCIÉS</h4>
+</div>
+<div class="column">            
+    <p>Art Canadien, École Hudson Valley, Paysage, Art Québecois, Réalisme, Carnet de Route / Art d'Expédition, Lithographie</p>
+</div>
+<div class="column">            
+    <h4>DESCRIPTION</h4>
+</div><div class="column">            
+    <p>Plusieurs bâtiments coloniaux à plusieurs étages parsèment le milieu de cette image, émergeant derrière un rideau d'arbres au bord d'une rivière.
+        À l'arrière-plan, un pont relie les deux rives de la rivière, et au premier plan se trouve un plan d'eau serein reflétant les arbres, sa surface en miroir brisée uniquement par les traces d'un petit bateau qui glisse.<br><br>
+        Cette vignette pastorale marie les représentations précédentes du sublime de Hunter avec des éléments plus conformes aux principes du réalisme.
+        Le réalisme, à ne pas confondre avec le photoréalisme, était un genre populaire dans l'art européen et nord-américain du milieu du XIXe siècle, se concentrant sur la vie des gens ordinaires et des paysages, rejetant le romantisme.</p>
+</div>
+<div class="column">            
+    <h4>LIEN ETRC</h4>
+</div>
+<div class="column">            
+    <a href="https://www.townshipsarchives.ca/confluence-massawippi-with-river-s-frances">https://www.townshipsarchives.ca/confluence-massawippi-with-river-s-frances</a>
+</div>
+</a>
+</li>
+</div>
+<li>
+<center>
+    <img src="https://www.townshipsarchives.ca/uploads/r/bishops-university-14/9/f/5/9f5815591bd27f59b3b14262739ab5d4a00bd86e567d3dd4d52573b9fed8d89e/1993_139_141.jpg">
+</center>
+</li>
+</div>
+<div class="end">
+</div>
+</div>
+<!-- New rectangle for images -->
+<script>
+    document.addEventListener("DOMContentLoaded", function() {
+        const circle = document.querySelector(".circle");
+        const rectangle = document.querySelector(".rectangle");
+        circle.addEventListener("click", function() {
+            rectangle.classList.toggle("visible");
+        });
+    });
+</script>
+
+
+</body></html>

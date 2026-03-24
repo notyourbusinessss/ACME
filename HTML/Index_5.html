@@ -1,0 +1,293 @@
+<html lang="en"><head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>ACME</title>
+    <style>
+            .arrow {
+                position: absolute;
+                top: calc( 50% );
+                width: 20px;
+                height: 20px;
+                border: solid black;
+                border-width: 0 3px 3px 0;
+                display: inline-block;
+                padding: 5px;
+                border-color: #ffffff;
+            }
+            .arrow.right {
+                transform: rotate(-45deg);
+                right: -25px;
+                color: #8c52ff;
+            }
+            .arrow.left {
+                transform: rotate(135deg);
+                left: -25px;
+            }
+            .bar{
+                margin-top: 40%;
+                margin-left: -1px;
+                width: 31px;
+                height: 20%;
+                background-color: #3e3830;
+            }
+            body, html {
+                margin: 0;
+                padding: 0;
+                height: 100%;
+                font-family: Arial, sans-serif; /* Setting a default font */
+            }
+            .column{
+                min-width: 0px;
+                margin-left: 5px;
+                word-wrap: break-word;
+            }
+            .circle {
+                position: absolute;
+                top: 50%;
+                right: 30px;
+                transform: translateY(-50%);
+                width: 30px; /* Larger circle */
+                height: 30px; /* Larger circle */
+                background-color: #D9D9D9; /* Circle color */
+                border-radius: 50%; /* Make it a circle */
+                cursor: pointer; /* Change cursor to pointer on hover */
+                z-index: 4; /* Ensure circle is above rectangle */
+            }
+            .description {
+                list-style-type: none;
+                position: absolute;
+                top: calc( 100% + 30px); /* Adjusted top position below the header */
+                left: 50%;
+                transform: translateX(-50%);
+                width: 100%; /* 80% of viewport width */
+                height: auto;
+                background-color: #FFFFFF; /* Set background color to white */
+                z-index: 0; /* Ensure rectangle is behind other elements */
+                border-radius: 10px; /* Rounded corners */
+            }
+            .description li{
+                margin-left: 15px;
+                margin-top: 35px;
+                margin-right: 15px;
+                margin-bottom: 25px;
+            }
+            .description li a {
+                display: grid;
+                grid-template-columns: auto auto;
+            }
+            .end{
+                bottom: 0px;
+            }
+            header {
+                background-color:  #3E3830; /* Menu bar background color */
+                border-bottom: 3px solid #8c52FF; /* Line color under the menu */
+                text-align: left; /* Align text to the left */
+                padding: 10px; /* Added padding */
+                width: 100%; /* Match the width of the viewport */
+                position: fixed; /* Fixed positioning */
+                top: 0; /* Fix to the top */
+                z-index: 3; /* Ensure it's above other elements */
+            }
+            .images {
+                list-style-type: none;
+                position: absolute;
+                top: 90px; /* Adjusted top position below the header */
+                left: 50%;
+                transform: translateX(-50%);
+                width: 80%; /* 80% of viewport width */
+                height: auto;
+                background-color: #FFFFFF; /* Set background color to white */
+                z-index: 0; /* Ensure rectangle is behind other elements */
+                border-radius: 10px; /* Rounded corners */
+                margin-bottom: 30px;
+            }
+            .images li{
+                margin-top: 15px;
+                margin-bottom: 15px;
+                margin-left: 15px;
+                margin-right: 15px;
+            }
+            .images li img{
+                height:auto;
+                width:100%;
+                border-radius: 5px;
+            }
+            .menu {
+                list-style-type: none;
+                margin: 0;
+                padding: 0;
+            }
+            .menu li {
+                margin-right: 20px;
+                position: relative;
+            }
+            .menu li:last-child {
+                margin-right: 0;
+            }
+            .menu li a {
+                color: #8c52ff; /* Text color */
+                text-decoration: none;
+                font-size: 2.5em; /* Slightly bigger text */
+                font-family: IMPACT;
+            }
+            .rectangle {
+                display: none; /* Initially hidden */
+                position: fixed;
+                top: 0;
+                right: 0;
+                width: 0; /* Initial width */
+                height: 0; /* Initial height */
+                background-color: #FFFFFF; /* Set background color to #3E3830 */
+                border: 6px solid #D9D9D9; /* Outline color */
+                border-radius: 10px; /* Rounded corners */
+                opacity: 0; /* Initially transparent */
+                transition: all 0.5s ease-out; /* Smooth transition effect */
+                z-index: 2; /* Ensure rectangle is below circle */
+            }
+            .rectangle.visible {
+                list-style-type: none;
+                display: block;
+                width: calc(100% - 12px); /* Adjusted width */
+                height: auto; /* Adjusted height */
+                opacity: 1; /* Fully visible */
+            }
+            .rectangle.visible li{
+                margin-left: 10%;
+                margin-top: 50px;
+                margin-bottom: 50px;
+                margin-right: 40px;
+            }
+            .rectangle.visible li a {
+                color: #3e3830; /* Text color */
+                text-decoration: none;
+                margin: 15px;
+                margin-top: 15px;
+                margin-bottom: 25px;
+                font-family: helvetica;
+                font-size: 100%; /* Slightly bigger text */
+            }
+            .rectangle.visible li b {
+                color: #8c52ff; /* Text color */
+                text-decoration: none;
+                margin-top: 10%;
+                margin-bottom: 10%;
+                font-family: IMPACT;
+                font-size: 150%; /* Slightly bigger text */
+            }
+            .square {
+                display: flex;
+                flex-direction: column;
+                width: 100%; /* Set width to 100% of viewport width */
+                min-height: calc(80% + 1100px); /* Adjust height to leave space for menu bar */
+                background-color: #3E3830; /* Set background color to #3E3830 */
+                position: relative; /* Relative positioning for absolute children */
+                top: 0px; /* Adjusted top position below the header */
+                overflow-y: auto; /* Enable vertical scroll */
+            }
+            /* Media query for mobile devices */
+            @media screen and (max-width: 600px) {
+                .menu li {
+                    margin: 10px 0; /* Adjust margin between menu items */
+                }
+            }
+    </style>
+    </head>
+    <body>
+    <header>
+    <ul class="menu">
+    <li><a>ACME</a></li>
+    </ul>
+    <div class="circle">
+    <div class="bar">
+    </div>
+    </div> <!-- Real DOM element for the circle -->
+    <div class="rectangle"><li style="text-align:center">
+        <a href="../ACME.html"><h2>THE COLLECTION</h2></a>
+        <a href="./Index_5_FR.html"><h2>FRANÇAIS</h2></a>
+        <a href="./AboutUs.html"><h2>ABOUT US</h2></a>
+        <a href="./File_Links.html"><h2>ABOUT THE PROJECT</h2></a>
+        <a><h2>CONTACT</h2></a>
+        <h1><b>ACME</b></h1>
+    </li></div>
+    </header>
+    <div class="square">
+        
+    <div class="images">
+        
+        <a class="arrow left" href="./Index_4.html"></a><a class="arrow right" href="./Index_6.html"></a>
+    
+    <div class="description">
+    <li>
+    <h2 style="text-align:center">Lake Massawippi</h2>
+    <a>
+    <div class="column">            
+        <h4>ARTIST</h4>
+    </div>
+    <div class="column">            
+        <p>William S. Hunter, Jr. (1823-1894)</p>
+    </div>
+    <div class="column">            
+        <h4>CREATION DATE</h4>
+    </div>
+    <div class="column">            
+        <p>unknown (mid-nineteenth century)</p>
+    </div>
+    <div class="column">            
+        <h4>MEDIUM</h4>
+    </div>
+    <div class="column">            
+        <p>lithograph: ink on paper; 23.1 cm x 29.8 cm</p>
+    </div>
+    <div class="column">            
+        <h4>PROVENANCE</h4>
+    </div>
+    <div class="column">            
+        <p>Gift of Monique Cholette and Philip H. Scowen, before 1993.</p>
+    </div>
+    <div class="column">            
+        <h4>ASSOCIATED GENRES</h4>
+    </div>
+    <div class="column">            
+        <p>Canadian Art, Hudson Valley School, Landscape, Quebec Art, Realism, Travelogue / Expeditionary Art, Lithography</p>
+    </div>
+    <div class="column">            
+        <h4>DESCRIPTION</h4>
+    </div>
+    <div class="column">            
+        <p><i>Lake Massawippi</i> is a similar subject and bridging of stylistic influences as <i>Confluence/Lake Massawippi River with the River S. Frances</i>, 
+            in juxtaposing imagery of civilization with a naturally grandiose background. 
+            Depicting an overcast day, a horizontal plane is halved between earth and water, and sky. 
+            A dirt path extends from the bottom of the image over a hill, leading to a small settlement of colonial-style buildings, the dominant one appearing to be the Federal style with a Mansard roof. 
+            Two figures on the path, appearing to be an adult and a child, approach the viewer, providing a subtext of pastorality to this combination of styles.</p>
+    </div>
+    <div class="column">        
+        <h4>ETRC LINK</h4>         
+    </div>
+    <div class="column">            
+        <a href="https://www.townshipsarchives.ca/lake-massawippi-8">https://www.townshipsarchives.ca/lake-massawippi-8</a>
+    </div>
+    </a>
+    </li>
+    </div>
+    <li>
+    <center>
+        <img src="https://www.townshipsarchives.ca/uploads/r/bishops-university-14/1/e/7/1e7929add9dbc4a1cfcbd29c38889b7a23806b623a12ec9771a9abf41eebc8c0/1993_133_141.jpg">
+    </center>
+    </li>
+    </div>
+    <div class="end">
+    </div>
+    </div>
+    <!-- New rectangle for images -->
+    <script>
+        document.addEventListener("DOMContentLoaded", function() {
+            const circle = document.querySelector(".circle");
+            const rectangle = document.querySelector(".rectangle");
+            circle.addEventListener("click", function() {
+                rectangle.classList.toggle("visible");
+            });
+        });
+    </script>
+    
+    
+    </body></html>
