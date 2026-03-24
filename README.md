@@ -1,9 +1,9 @@
 #########################################################
-#                                                       #
-#       Read-Me File: just generally talking about      #
-#           how to travel through it and how to         #
-#           see what is what!                           #
-#                                                       #
+                                                       #
+       Read-Me File: just generally talking about      #
+           how to travel through it and how to         #
+           see what is what!                           #
+                                                       #
 #########################################################
 
 
